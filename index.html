@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BITTU | Luxury Stitch Studio</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+:root{
+--gold:#d6aa62;
+--gold2:#f5d69b;
+--black:#080909;
+--panel:#141513;
+--white:#f7f0e4;
+--muted:#a49c8e;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+background:var(--black);
+color:var(--white);
+font-family:'DM Sans',sans-serif;
+overflow-x:hidden;
+}
+
+button,a{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background:
+radial-gradient(ellipse at 50% 30%,#b58b3920,transparent 55%);
+z-index:-1;
+}
+
+#intro{
+position:fixed;
+inset:0;
+background:#070808;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+transition:opacity .8s,visibility .8s;
+}
+
+#intro.hide{
+opacity:0;
+visibility:hidden;
+}
+
+.intro-line{
+width:0;
+height:1px;
+background:var(--gold);
+animation:lineIn 1.4s .2s forwards;
+margin:20px;
+}
+
+@keyframes lineIn{to{width:min(280px,75vw)}}
+
+.intro-logo{
+font-family:'Playfair Display';
+font-size:clamp(38px,9vw,75px);
+letter-spacing:5px;
+color:var(--gold2);
+animation:logoIn 1.2s both;
+}
+
+@keyframes logoIn{
+from{opacity:0;transform:translateY(30px);filter:blur(8px)}
+to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+
+.intro-small{
+font-size:10px;
+letter-spacing:6px;
+color:#a69a82;
+}
+
+.enter{
+margin-top:38px;
+background:transparent;
+border:1px solid var(--gold);
+color:var(--gold);
+padding:15px 34px;
+letter-spacing:3px;
+font-size:11px;
+transition:.3s;
+}
+
+.enter:hover{
+background:var(--gold);
+color:black;
+}
+
+header{
+height:76px;
+position:sticky;
+top:0;
+z-index:1000;
+background:#090a09eF;
+backdrop-filter:blur(15px);
+border-bottom:1px solid #d6aa6230;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 7%;
+}
+
+.brand{
+font-family:'Playfair Display';
+font-size:24px;
+color:var(--gold);
+letter-spacing:2px;
+}
+
+.nav{
+display:flex;
+gap:32px;
+}
+
+.nav button{
+background:none;
+border:none;
+color:#ddd1bb;
+font-size:11px;
+letter-spacing:2px;
+transition:.3s;
+}
+
+.nav button:hover,.nav button.active{
+color:var(--gold);
+}
+
+.menu{
+display:none;
+background:none;
+border:none;
+color:var(--gold);
+font-size:27px;
+}
+
+.page{
+display:none;
+animation:pageIn .55s ease both;
+min-height:85vh;
+}
+
+.page.active{display:block}
+
+@keyframes pageIn{
+from{opacity:0;transform:translateY(12px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* HOME HERO */
+
+.hero{
+min-height:calc(100vh - 76px);
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:55px 15px 75px;
+position:relative;
+overflow:hidden;
+}
+
+.hero:before{
+content:"";
+position:absolute;
+width:450px;
+height:450px;
+border-radius:50%;
+border:1px solid #d6aa6215;
+box-shadow:0 0 100px #d6aa6210;
+animation:halo 8s linear infinite;
+}
+
+@keyframes halo{to{transform:rotate(360deg)}}
+
+.overline{
+color:var(--gold);
+letter-spacing:5px;
+font-size:10px;
+font-weight:700;
+position:relative;
+}
+
+.hero h1{
+font-family:'Playfair Display';
+font-size:clamp(43px,9vw,85px);
+line-height:1.05;
+margin:20px 0 10px;
+position:relative;
+}
+
+.hero h1 span{color:var(--gold)}
+
+.hero p{
+color:var(--muted);
+font-size:12px;
+letter-spacing:3px;
+margin:15px 0;
+}
+
+/* FULL SEWING MACHINE SVG */
+
+.machine-wrap{
+width:min(700px,96vw);
+height:340px;
+position:relative;
+display:grid;
+place-items:center;
+margin:5px 0;
+}
+
+.machine-svg{
+width:100%;
+height:100%;
+overflow:visible;
+filter:drop-shadow(0 18px 22px #000);
+}
+
+.machine-body{
+fill:url(#goldBody);
+stroke:#f3d49a;
+stroke-width:2;
+}
+
+.machine-dark{
+fill:#171817;
+stroke:#d6aa62;
+stroke-width:3;
+}
+
+.machine-metal{
+fill:#d8b16e;
+stroke:#fff0c7;
+stroke-width:1.5;
+}
+
+.wheel{
+transform-box:fill-box;
+transform-origin:center;
+animation:wheelSpin 3s linear infinite;
+}
+
+@keyframes wheelSpin{to{transform:rotate(360deg)}}
+
+.needle{
+animation:needleMove .45s ease-in-out infinite alternate;
+}
+
+@keyframes needleMove{
+to{transform:translateY(10px)}
+}
+
+.thread{
+stroke-dasharray:8 5;
+animation:threadMove 1s linear infinite;
+}
+
+@keyframes threadMove{
+to{stroke-dashoffset:-26}
+}
+
+.machine-shine{
+animation:shine 4s ease-in-out infinite;
+}
+
+@keyframes shine{
+0%,100%{opacity:.1}
+50%{opacity:.75}
+}
+
+.table-glow{
+fill:#d6aa62;
+opacity:.15;
+filter:blur(12px);
+}
+
+.gold-btn{
+background:linear-gradient(110deg,#a77b37,#f2d49b,#b38a4c);
+border:0;
+padding:16px 32px;
+color:#17120b;
+font-size:11px;
+font-weight:800;
+letter-spacing:2px;
+transition:.3s;
+margin-top:25px;
+}
+
+.gold-btn:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 35px #d6aa6240;
+}
+
+/* SECTIONS */
+
+.section{
+padding:90px 8%;
+}
+
+.label{
+color:var(--gold);
+font-size:10px;
+letter-spacing:5px;
+font-weight:700;
+}
+
+.heading{
+font-family:'Playfair Display';
+font-size:clamp(38px,7vw,65px);
+margin:18px 0;
+}
+
+.heading span{color:var(--gold)}
+
+.description{
+max-width:570px;
+font-size:13px;
+line-height:2;
+color:var(--muted);
+}
+
+.divider{
+height:1px;
+background:linear-gradient(90deg,transparent,#d6aa62,transparent);
+margin:40px 0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:22px;
+margin-top:40px;
+}
+
+.card{
+background:linear-gradient(145deg,#1a1a16,#101110);
+border:1px solid #d6aa6230;
+padding:32px;
+position:relative;
+overflow:hidden;
+transition:.35s;
+}
+
+.card:hover{
+transform:translateY(-7px);
+border-color:var(--gold);
+box-shadow:0 15px 35px #0008;
+}
+
+.card small{
+color:var(--gold);
+letter-spacing:3px;
+font-size:10px;
+}
+
+.card .symbol{
+font-size:36px;
+margin:22px 0;
+}
+
+.card h3{
+font-family:'Playfair Display';
+font-size:26px;
+margin-bottom:12px;
+}
+
+.card p{
+font-size:12px;
+line-height:2;
+color:var(--muted);
+}
+
+.price{
+color:var(--gold2);
+font-weight:800;
+margin-top:18px;
+font-size:19px;
+}
+
+.contact-box{
+margin-top:35px;
+padding:35px;
+border:1px solid #d6aa6250;
+background:linear-gradient(140deg,#241e13,#101110);
+}
+
+.contact-box h3{
+font-family:'Playfair Display';
+font-size:32px;
+margin:15px 0;
+}
+
+.contact-box p{
+font-size:13px;
+color:var(--muted);
+line-height:2.2;
+}
+
+.map{
+width:100%;
+height:300px;
+border:1px solid #d6aa6250;
+margin-top:25px;
+filter:grayscale(.5);
+}
+
+footer{
+padding:35px 7%;
+text-align:center;
+border-top:1px solid #d6aa6230;
+color:#8f8779;
+font-size:11px;
+line-height:2.3;
+}
+
+footer strong{
+font-family:'Playfair Display';
+font-size:20px;
+color:var(--gold);
+}
+
+@media(max-width:650px){
+header{padding:0 6%}
+.menu{display:block}
+.nav{
+display:none;
+position:absolute;
+top:76px;
+left:0;
+width:100%;
+background:#10110f;
+padding:25px;
+flex-direction:column;
+align-items:center;
+gap:25px;
+border-bottom:1px solid #d6aa6250;
+}
+.nav.open{display:flex}
+.grid{grid-template-columns:1fr}
+.section{padding:70px 6%}
+.machine-wrap{height:260px}
+.hero{min-height:calc(90vh - 76px)}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{
+animation-duration:.01ms!important;
+transition-duration:.01ms!important;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<div id="intro">
+ <div class="intro-small">WELCOME TO</div>
+ <div class="intro-line"></div>
+ <h1 class="intro-logo">BITTU STITCH</h1>
+ <div class="intro-line"></div>
+ <div class="intro-small">THE ART OF PERFECTION</div>
+ <button class="enter" onclick="enterSite()">ENTER STUDIO ↗</button>
+</div>
+
+<header>
+ <div class="brand">BITTU.</div>
+ <button class="menu" onclick="toggleMenu()">☰</button>
+ <nav class="nav" id="nav">
+  <button class="active" onclick="showPage('home',this)">HOME</button>
+  <button onclick="showPage('services',this)">SERVICES</button>
+  <button onclick="showPage('contact',this)">CONTACT</button>
+ </nav>
+</header>
+
+<!-- HOME -->
+
+<main class="page active" id="home">
+
+<section class="hero">
+
+ <div class="overline">PRECISION • PASSION • PERFECTION</div>
+
+ <h1>BITTU <span>STITCH</span><br>STUDIO.</h1>
+
+ <p>WHERE EVERY STITCH MATTERS.</p>
+
+ <div class="machine-wrap">
+
+ <svg class="machine-svg" viewBox="0 0 700 370" xmlns="http://www.w3.org/2000/svg">
+
+ <defs>
+  <linearGradient id="goldBody" x1="0" y1="0" x2="1" y2="1">
+   <stop offset="0" stop-color="#fff0bd"/>
+   <stop offset=".25" stop-color="#d8b16e"/>
+   <stop offset=".55" stop-color="#95672c"/>
+   <stop offset=".8" stop-color="#e8c786"/>
+   <stop offset="1" stop-color="#79501f"/>
+  </linearGradient>
+  <linearGradient id="table" x1="0" y1="0" x2="0" y2="1">
+   <stop stop-color="#3d3020"/>
+   <stop offset="1" stop-color="#090a09"/>
+  </linearGradient>
+  <linearGradient id="shine" x1="0" x2="1">
+   <stop stop-color="#fff" stop-opacity="0"/>
+   <stop offset=".5" stop-color="#fff" stop-opacity=".6"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+ </defs>
+
+ <!-- Floor shadow -->
+ <ellipse cx="350" cy="320" rx="265" ry="25" fill="#000" opacity=".8"/>
+ <ellipse class="table-glow" cx="350" cy="300" rx="250" ry="25"/>
+
+ <!-- Table -->
+ <path d="M65 268 H640 L615 294 H90Z" fill="url(#table)" stroke="#bd9251" stroke-width="2"/>
+ <path d="M105 294 L120 350 M600 294 L585 350" stroke="#98703b" stroke-width="8"/>
+ <path d="M120 350 H585" stroke="#d6aa62" stroke-width="4"/>
+
+ <!-- Machine base -->
+ <path d="M145 248 H555 Q580 248 580 265 V275 H145Z" class="machine-body"/>
+
+ <!-- Machine main body -->
+ <path class="machine-body"
+ d="M155 245
+ L155 128
+ Q155 72 214 72
+ H400
+ Q458 72 458 130
+ V154
+ H500
+ Q535 154 535 188
+ V244
+ H425
+ V177
+ H282
+ V244Z"/>
+
+ <!-- Front decorative panel -->
+ <path d="M180 125 Q180 92 220 92 H382 Q426 92 426 128 V155 H180Z" fill="#171815" stroke="#e2bf7d" stroke-width="3"/>
+
+ <path d="M195 120 H410" stroke="#e4c17e" stroke-width="2"/>
+ <text x="300" y="139" text-anchor="middle" fill="#f1d39a" font-size="18" font-family="serif" letter-spacing="4">BITTU</text>
+
+ <!-- Arm -->
+ <path d="M275 158 H495 Q518 158 518 184 V206 H440 V184 H275Z" class="machine-body"/>
+
+ <!-- Arm shine -->
+ <path class="machine-shine" d="M300 163 H485 L480 168 H300Z" fill="url(#shine)"/>
+
+ <!-- Needle housing -->
+ <rect x="435" y="180" width="62" height="75" rx="8" class="machine-dark"/>
+ <path d="M465 220 V278" stroke="#f2d59a" stroke-width="5" class="needle"/>
+ <path d="M465 276 V288" stroke="#fff" stroke-width="2" class="needle"/>
+
+ <!-- Presser foot -->
+ <path d="M445 285 H484 M451 285 V293 H478 V285" fill="none" stroke="#d9b575" stroke-width="4"/>
+
+ <!-- Needle plate -->
+ <rect x="420" y="290" width="95" height="6" fill="#d9b575"/>
+
+ <!-- Thread -->
+ <path d="M465 65 V100 H480 V165 H465 V278" fill="none" stroke="#f4d89c" stroke-width="2" class="thread"/>
+
+ <!-- Spool -->
+ <rect x="365" y="35" width="13" height="42" rx="3" fill="#d6aa62"/>
+ <ellipse cx="371" cy="35" rx="13" ry="5" fill="#f5d69b"/>
+ <ellipse cx="371" cy="77" rx="13" ry="5" fill="#b78b4b"/>
+ <path d="M365 42 H378 M365 50 H378 M365 58 H378 M365 66 H378" stroke="#fff0c7" stroke-width="2"/>
+
+ <!-- Spool holder -->
+ <path d="M371 77 V89 H390" stroke="#e6c27e" stroke-width="3" fill="none"/>
+
+ <!-- Big hand wheel -->
+ <g class="wheel">
+  <circle cx="125" cy="183" r="58" fill="#151613" stroke="#e2bf7d" stroke-width="7"/>
+  <circle cx="125" cy="183" r="42" fill="none" stroke="#bd9452" stroke-width="4"/>
+  <circle cx="125" cy="183" r="10" fill="#e4c17e"/>
+  <path d="M125 141 V225 M83 183 H167 M95 153 L155 213 M155 153 L95 213" stroke="#d6aa62" stroke-width="4"/>
+ </g>
+
+ <!-- Small control wheel -->
+ <circle cx="526" cy="227" r="15" fill="#171815" stroke="#f0d294" stroke-width="4"/>
+ <circle cx="526" cy="227" r="5" fill="#f0d294"/>
+
+ <!-- Gold details -->
+ <circle cx="205" cy="232" r="5" fill="#f4d69a"/>
+ <circle cx="230" cy="232" r="5" fill="#f4d69a"/>
+ <path d="M200 248 H400" stroke="#f3d69a" stroke-width="2"/>
+
+ <!-- Cloth -->
+ <path d="M400 297 H525 L570 314 H400Z" fill="#d6aa62" opacity=".9"/>
+ <path d="M410 301 H550" stroke="#fff0c7" stroke-width="2" stroke-dasharray="6 5" class="thread"/>
+
+ </svg>
+ </div>
+
+ <p>CRAFTED WITH CARE. BUILT WITH PRECISION.</p>
+
+ <button class="gold-btn" onclick="showPage('services')">
+  EXPLORE OUR SERVICES ↗
+ </button>
+
+</section>
+
+<section class="section">
+ <div class="label">OUR PHILOSOPHY</div>
+ <h2 class="heading">Crafted with <span>Passion.</span></h2>
+ <p class="description">
+  Every detail matters. From careful stitching to reliable
+  sewing machine services, Bittu brings quality and care
+  to every piece of work.
+ </p>
+ <div class="divider"></div>
+ <div class="label">QUALITY • TRUST • CRAFTSMANSHIP</div>
+</section>
+
+</main>
+
+<!-- SERVICES -->
+
+<main class="page" id="services">
+<section class="section">
+
+ <div class="label">WHAT WE OFFER</div>
+ <h1 class="heading">Our <span>Services.</span></h1>
+ <p class="description">
+  Discover our sewing, stitching and machine care services.
+ </p>
+
+ <div class="grid">
+
+  <article class="card">
+   <small>01 / STITCHING</small>
+   <div class="symbol">🧵</div>
+   <h3>Cloth Stitching</h3>
+   <p>Neat and careful stitching for your clothing requirements.</p>
+  </article>
+
+  <article class="card">
+   <small>02 / REPAIR</small>
+   <div class="symbol">⚙️</div>
+   <h3>Machine Repair</h3>
+   <p>Sewing machine repair and maintenance services.</p>
+  </article>
+
+  <article class="card">
+   <small>03 / HOME SOLUTION</small>
+   <div class="symbol">🏠</div>
+   <h3>Mosquito Net</h3>
+   <p>Practical mosquito net solutions for your home.</p>
+   <div class="price">₹300 STARTING</div>
+  </article>
+
+  <article class="card">
+   <small>04 / MACHINE CARE</small>
+   <div class="symbol">🔧</div>
+   <h3>Machine Servicing</h3>
+   <p>Regular checking and servicing for sewing machines.</p>
+  </article>
+
+ </div>
+
+ <div class="divider"></div>
+
+ <div class="contact-box">
+  <div class="label">LET'S CREATE SOMETHING</div>
+  <h3>Need our services?</h3>
+  <p>Visit our shop and discuss your requirements.</p>
+  <button class="gold-btn" onclick="showPage('contact')">
+   VISIT OUR SHOP ↗
+  </button>
+ </div>
+
+</section>
+</main>
+
+<!-- CONTACT -->
+
+<main class="page" id="contact">
+<section class="section">
+
+ <div class="label">FIND OUR STUDIO</div>
+ <h1 class="heading">Visit <span>Bittu.</span></h1>
+ <p class="description">
+  We welcome you to our shop. Visit us for stitching,
+  sewing machine repair and mosquito net services.
+ </p>
+
+ <div class="contact-box">
+  <div class="label">OUR ADDRESS</div>
+  <h3>Bittu Stitch Studio</h3>
+  <p>
+   Ghughli, Subash Chowk Road<br>
+   Uttar Pradesh, India
+  </p>
+
+  <a class="gold-btn" style="display:inline-block"
+  href="https://www.google.com/maps/search/?api=1&query=Ghughli+Subash+Chowk+Road+Uttar+Pradesh"
+  target="_blank">
+  OPEN GOOGLE MAPS ↗
+  </a>
+ </div>
+
+ <iframe class="map" loading="lazy"
+ src="https://maps.google.com/maps?q=Ghughli%20Subash%20Chowk%20Road%20Uttar%20Pradesh&output=embed">
+ </iframe>
+
+</section>
+</main>
+
+<footer>
+ <strong>BITTU STITCH STUDIO</strong>
+ <p>THE ART OF PRECISION & PERFECTION</p>
+ <p>Ghughli • Subash Chowk Road • Uttar Pradesh</p>
+ <p>© 2026 BITTU STITCH STUDIO</p>
+</footer>
+
+<script>
+function enterSite(){
+ document.getElementById('intro').classList.add('hide');
+}
+
+window.addEventListener('load',()=>{
+ setTimeout(enterSite,5000);
+});
+
+function toggleMenu(){
+ document.getElementById('nav').classList.toggle('open');
+}
+
+function showPage(id,btn){
+ document.querySelectorAll('.page').forEach(p=>{
+  p.classList.remove('active');
+ });
+ document.getElementById(id).classList.add('active');
+
+ document.querySelectorAll('.nav button').forEach(b=>{
+  b.classList.remove('active');
+ });
+ if(btn)btn.classList.add('active');
+
+ document.getElementById('nav').classList.remove('open');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
